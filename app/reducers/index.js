@@ -1,5 +1,5 @@
-import api from './api';
+import news from './news';
 
 export {
-  api
+  news
 };

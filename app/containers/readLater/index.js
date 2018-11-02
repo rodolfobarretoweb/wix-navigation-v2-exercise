@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { Text } from 'react-native';
 
-class Main extends PureComponent {
+class ReadLater extends PureComponent {
   render() {
-    return <Text>Main</Text>;
+    return <Text>Reader later</Text>;
   }
 }
 
-export default Main;
+export default ReadLater;
