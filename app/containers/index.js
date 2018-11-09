@@ -1,9 +1,11 @@
-import { Navigation } from "react-native-navigation";
 import { NAMESPACE } from '../configs/constants';
-import Main from "./main";
+import { Navigation } from 'react-native-navigation';
+import TopHeadlines from './topHeadlines';
+import WebContainer from './webContainer';
+import ReadLater from './readLater';
 
-Navigation.registerComponent(`${NAMESPACE}.main`, () => Main);
-
-export {
-  Main
-};
+export function registerContainers(provider, store) {
+  Navigation.registerComponentWithRedux(`${NAMESPACE}.topHeadlines`, () => TopHeadlines, provider, store);
+  Navigation.registerComponentWithRedux(`${NAMESPACE}.webContainer`, () => WebContainer, provider, store);
+  Navigation.registerComponentWithRedux(`${NAMESPACE}.readLater`, () => ReadLater, provider, store);
+}
