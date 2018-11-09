@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { View, Image, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import { Navigation } from 'react-native-navigation';
 import I18n from 'react-native-i18n';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -11,11 +12,15 @@ import Button from '../../../components/button';
 import Style from './style';
 
 class Item extends PureComponent {
+  state = {
+    markedToReadLater: false
+  };
+
   onPressReadMore = async () => {
     const { url, title } = this.props.data;
 
     const icon = await Icon.getImageSource('window-close', 20, '#333');
-    const containerId = 'topHeadlinesWebContainer';
+    const containerId = 'webContainer';
 
     Navigation.showModal({
       stack: {
@@ -28,7 +33,7 @@ class Item extends PureComponent {
               topBar: {
                 title: { text: title },
                 leftButtons: [{
-                  id: 'topHeadlinesWebContainerBackButton',
+                  id: 'webContainerBackButton',
                   color: '#333',
                   icon
                 }]
@@ -41,7 +46,18 @@ class Item extends PureComponent {
   }
 
   onPressReadLater = () => {
+    this.setState({ markedToReadLater: !this.state.markedToReadLater });
+    this.props.onPressReadLater(this.props.data);
+  }
 
+  getReadLaterButtonStyle() {
+    const style = [Style.button];
+
+    if(this.state.markedToReadLater) {
+      style.push(Style.disableButton);
+    }
+
+    return style;
   }
 
   render() {
@@ -59,13 +75,28 @@ class Item extends PureComponent {
 
             <View style={Style.buttonsContainer}>
               <Button onPress={this.onPressReadMore} style={Style.button} label={I18n.t('topHeadlines.readMore')}/>
-              <Button onPress={this.onPressReadLater} style={Style.button} label={I18n.t('topHeadlines.readLater')}/>
+
+              <Button
+                onPress={this.onPressReadLater}
+                style={this.getReadLaterButtonStyle()}
+                label={I18n.t('topHeadlines.readLater')}
+              />
             </View>
           </View>
         </View>
       </Card>
     );
   }
+}
+
+Item.propTypes = {
+  onPressReadLater: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    publishedAt: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    urlToImage: PropTypes.string
+  })
 }
 
 export default Item;

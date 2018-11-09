@@ -11,8 +11,8 @@ class WebContainer extends PureComponent {
   }
 
   navigationButtonPressed({ buttonId }) {
-    if(buttonId === 'topHeadlinesWebContainerBackButton') {
-      Navigation.dismissModal('topHeadlinesWebContainer');
+    if(buttonId === 'webContainerBackButton') {
+      Navigation.dismissModal('webContainer');
     }
   }
 

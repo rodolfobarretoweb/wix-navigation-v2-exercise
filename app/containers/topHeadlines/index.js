@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { SafeAreaView, FlatList } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchTopHeadlines } from '../../actions/news';
+import { fetchTopHeadlines, saveToReadLater } from '../../actions/news';
 import Item from './item';
 import Style from './style';
 
@@ -11,7 +11,11 @@ class TopHeadlines extends PureComponent {
   }
 
   keyExtractor = (_, index) => index.toString();
-  renderItem = ({ item }) => <Item data={item}/>;
+  renderItem = ({ item }) => <Item data={item} onPressReadLater={this.onPressReadLater}/>;
+
+  onPressReadLater = data => {
+    this.props.saveToReadLater(data);
+  }
 
   render() {
     return(
@@ -28,4 +32,4 @@ class TopHeadlines extends PureComponent {
 
 export default connect(state => ({
   list: state.news.list
-}), { fetchTopHeadlines })(TopHeadlines);
+}), { fetchTopHeadlines, saveToReadLater })(TopHeadlines);

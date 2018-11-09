@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { TouchableHighlight, Text } from 'react-native';
-import { upperCase } from 'lodash';
 import PropTypes from 'prop-types';
+import { upperCase } from 'lodash';
 import Style from './style';
 
 class Button extends PureComponent {

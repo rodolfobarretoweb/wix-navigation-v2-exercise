@@ -38,5 +38,9 @@ export default StyleSheet.create({
 
   button: {
     marginRight: 5
+  },
+
+  disableButton: {
+    backgroundColor: '#dfdfdf'
   }
 });
